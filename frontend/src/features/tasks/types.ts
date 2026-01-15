@@ -7,7 +7,6 @@ export interface Task {
     status: TaskStatus;
 }
 
-// Данные для создания
 export interface CreateTaskDTO {
     title: string;
     description?: string;

@@ -44,13 +44,23 @@ func ConnectDB() {
 
 func createTables() {
 	schema := `
+	CREATE TABLE IF NOT EXISTS users (
+        id SERIAL PRIMARY KEY,
+        email VARCHAR(255) UNIQUE NOT NULL,
+        username VARCHAR(255) UNIQUE NOT NULL,
+        password TEXT NOT NULL
+    );
+	
 	CREATE TABLE IF NOT EXISTS tasks (
-		id SERIAL PRIMARY KEY,
-		title VARCHAR(255) NOT NULL,
-		description TEXT,
-		status VARCHAR(50) DEFAULT 'new'
-	);`
+        id SERIAL PRIMARY KEY,
+        title VARCHAR(255) NOT NULL,
+        description TEXT,
+        status VARCHAR(50) DEFAULT 'new',
+        user_id INTEGER REFERENCES users(id) ON DELETE CASCADE
+    );
+	`
 
 	DB.MustExec(schema)
 	fmt.Println("✅ Tables migrated")
 }
+

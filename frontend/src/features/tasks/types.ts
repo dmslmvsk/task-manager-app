@@ -3,7 +3,7 @@ export type TaskStatus = "new" | "done";
 export interface Task {
     id: number;
     title: string;
-    description: string;
+    description?: string;
     status: TaskStatus;
 }
 

@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useAuthStore } from "./store";
 import { login, registerUser, type LoginDTO, type RegisterDTO } from "./api";
+import { toast } from "sonner";
 
 export const useLogin = () => {
     const setAuth = useAuthStore((state) => state.setAuth);
@@ -11,6 +12,7 @@ export const useLogin = () => {
         mutationFn: (data: LoginDTO) => login(data),
         onSuccess: (data) => {
             setAuth(data.token, data.user);
+            toast.success(`Welcome back, ${data.user.username}!`);
             navigate({ to: "/" });
         },
     });

@@ -1,108 +1,48 @@
-🚀 TaskFlow: Full-Stack Architecture Blueprint
-TaskFlow is a production-ready, full-stack task management application designed to serve as a reference implementation for modern web development. It demonstrates best practices in project structure, state management, and security using Go and React.
+# 🚀 TaskFlow: Full-Stack Reference & Blueprint
 
-🛠 Tech Stack
-Backend
-Language: Go (1.23+)
+This is a clean, working full-stack application built to serve as a **reference (blueprint)** for future projects. It implements a solid architecture without unnecessary complexity.
 
-Framework: Gin Gonic (High-performance HTTP web framework)
+Use this repo to copy-paste patterns for Auth, Routing, and State Management.
 
-Database: PostgreSQL
+## 🛠 Tech Stack
 
-Auth: JWT (JSON Web Tokens) with Bcrypt password hashing
+- **Backend:** Go (Gin) + PostgreSQL
+- **Frontend:** React 19 + Vite
+- **Routing:** TanStack Router (File-based, type-safe)
+- **State:** TanStack Query (Server state) + Zustand (Client state)
+- **UI:** Tailwind CSS + Shadcn/UI
 
-Middleware: Custom CORS and Authentication handlers
+## 💡 Key Architectural Patterns
 
-Frontend
-Core: React 19 + Vite
+This project demonstrates how to correctly implement:
 
-Routing: TanStack Router (Fully type-safe, file-based routing)
+1.**JWT Authentication:** Complete flow with access tokens, secure storage, and Axios interceptors. 2.**Protected Routes:** Using `beforeLoad` in TanStack Router to redirect unauthenticated users. 3.**Feature-Based Structure:** Organizing code by features (`features/auth`, `features/tasks`) instead of generic types. 4.**Form Validation:** Using React Hook Form + Zod.
 
-Data Fetching: TanStack Query v5 (Asynchronous state management)
+## ✅ Core Features
 
-State Management: Zustand (Client-side persistence)
+- Full Auth flow (Register / Login / Logout)
+- Task Management (Create, Read, Update, Delete)
+- Task Filtering (All / Active / Completed)
+- Expandable task descriptions
 
-Styling: Tailwind CSS + Shadcn/UI
+## 🚀 Quick Start
 
-Forms: React Hook Form + Zod (Schema validation)
+### 1. Backend
 
-🏛 Architectural Principles
-This project implements several advanced patterns intended for long-term scalability:
+Make sure PostgreSQL is running and your `.env` is set up.
 
-1. Feature-Based Directory Structure (Frontend)
-   Instead of grouping files by type (e.g., all components in one folder), the frontend is organized by domain features (Auth, Tasks).
+```bash
+cd backend
+go mod download
+go run cmd/main.go
+```
 
-Encapsulation: Each feature contains its own API calls, hooks, and UI components.
+### 1. Frontend
 
-Reusability: Features can be easily moved or shared between projects.
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-2. Decoupled State Management
-   We differentiate between Server State and Client State:
-
-Server State (TanStack Query): Handles caching, loading states, and data synchronization with the Go API.
-
-Client State (Zustand): Handles UI-only state like user authentication data and theme preferences, persisted in localStorage.
-
-3. Automated Network Layer (Axios Interceptors)
-   The application uses a centralized Axios instance with interceptors:
-
-Request Interceptor: Automatically injects the JWT token from the Zustand store into every outgoing request.
-
-Response Interceptor: Monitors for 401 Unauthorized errors to automatically trigger a logout and redirect when the session expires.
-
-📂 Project Structure
-Frontend (/frontend)
-Plaintext
-
-src/
-├── components/ # Shared UI components (shadcn/ui)
-│ └── layout/ # Global Layout (Header, Footer)
-├── features/ # Encapsulated business logic
-│ ├── auth/ # Auth store, login/register logic
-│ └── tasks/ # Task items, forms, and Query hooks
-├── lib/ # Core configurations (api.ts, utils.ts)
-└── routes/ # Type-safe routing tree
-Backend (/backend)
-Plaintext
-
-internal/
-├── handlers/ # HTTP controllers (logic)
-├── middleware/ # JWT Auth & CORS guards
-├── models/ # DB schemas and DTOs
-└── repository/ # Database access layer (SQL)
-cmd/
-└── main.go # Application entry point
-🔑 Key Reference Implementations
-Auth Guard: See src/routes/tasks.tsx for how to protect routes using beforeLoad.
-
-Optimistic UI: Example of how React Query handles data mutations.
-
-Form Validation: Use of zod schema to prevent invalid API submissions.
-
-Go Middleware: Standard JWT verification pattern in middleware/auth.go.
-
-🚦 Getting Started
-Prerequisites
-Go 1.23+
-
-Node.js 20+
-
-PostgreSQL instance
-
-Setup
-Clone & Install:
-
-Bash
-
-git clone <repo-url>
-cd taskflow/backend && go mod download
-cd ../frontend && npm install
-Environment: Configure your .env for the backend (DB_URL, JWT_SECRET).
-
-Run:
-
-Backend: go run cmd/main.go
-
-Frontend: npm run dev
-
-Design Philosophy: This repository is not just a "To-Do app". It is a Blueprint. Every line of code is written to be readable, maintainable, and serve as a "copy-paste" foundation for professional-grade projects.
+The app will run at http://localhost:5173.
